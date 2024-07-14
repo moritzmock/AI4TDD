@@ -26,19 +26,19 @@ class Runner():
             generic_prompt
         )
         self.max_number_repetitions = max_number_repetitions
-        self.skip = how_many_to_skip(file)
+        self.skip = how_many_to_skip(file) + 1
 
     def run(self):
         self.handler.execute_tests(None)
-        counter = self.skip
-        while counter < (self.max_number_repetitions + self.skip):
+        counter = 0
+        while counter < (self.max_number_repetitions):
             counter += 1
-            result = self.handler.send_message(counter)
+            result = self.handler.send_message("{}_{}".format(self.skip, counter))
             if result == TEST_PASSED_WITHOUT_AI:
                 print("The test case is already fulfilled, the code was not modified by ChatGPT.")
-                counter = self.max_number_repetitions + self.skip
+                counter = self.max_number_repetitions
             else:
-                result = self.handler.execute_new_test(counter)
+                result = self.handler.execute_new_test("{}_{}".format(self.skip, counter))
 
                 if result == TEST_PASSED:
                     print("Test case passed! You can inspect the updated code now!")
