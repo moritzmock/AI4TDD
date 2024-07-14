@@ -178,7 +178,7 @@ class TestCaseAIHandler():
     def create_code(self):
         path = self.folder + "/" + self.get_last_test_case_path()
 
-        result_sub_process = subprocess.run(["python", "../HumanWithAI/runner.py", "--file", path, "--generic_prompt",
+        result_sub_process = subprocess.run(["python", "../collaborativeAI/runner.py", "--file", path, "--generic_prompt",
                                              self.generic_production_code_prompt],
                                             stdout=subprocess.PIPE,
                                             stderr=subprocess.PIPE, universal_newlines=True)
